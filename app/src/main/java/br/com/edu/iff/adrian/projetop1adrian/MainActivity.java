@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Usuario usuario = new Usuario();
-                String login = etLogin.toString();
-                String senha = etSenha.toString();
+                String login = etLogin.getText().toString();
+                String senha = etSenha.getText().toString();
                 String mensagem = "";
                 mensagem = logar(login,senha);
                 AlertDialog.Builder dlg = new AlertDialog.Builder(MainActivity.this);
@@ -40,13 +40,14 @@ public class MainActivity extends AppCompatActivity {
 
     public String logar(String login, String senha){
         Realm realm = Realm.getDefaultInstance();
+        Usuario usuarioBusca = new Usuario();
         Usuario usuario = new Usuario();
         String mensagem = "";
         if (login != null){
-            usuario = usuario.findByLogin(login);
+            usuario = usuarioBusca.findByLogin(login);
             if (usuario != null) {
                 if (usuario.getSenha() != null && senha != null) {
-                    if (usuario.getSenha() == senha) {
+                    if (usuario.getSenha().equals(senha)) {
                         Log.d("Resultado do Login", "Usuário encontrado e carregado!");
                     } else {
                         Log.d("Resultado do Login","Senha incorreta!");

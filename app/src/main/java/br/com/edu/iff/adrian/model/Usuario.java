@@ -35,9 +35,13 @@ public class Usuario extends RealmObject {
 
     public Usuario findByLogin(String login){
         Realm realm = Realm.getDefaultInstance();
+/*        realm.beginTransaction();
+        Usuario usuario2 = new Usuario(1,"John","jjhon","1234",1);
+        realm.insert(usuario2);
+        realm.commitTransaction(); */
         Usuario usuario = new Usuario();
         try {
-            usuario = realm.where(Usuario.class).contains("login", login).findFirst();
+            usuario = realm.where(Usuario.class).equalTo("login", login).findFirst();
         }finally{
             realm.close();
         }
