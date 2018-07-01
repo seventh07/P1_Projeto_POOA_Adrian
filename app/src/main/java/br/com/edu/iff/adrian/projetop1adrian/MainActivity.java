@@ -1,5 +1,6 @@
 package br.com.edu.iff.adrian.projetop1adrian;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,12 +28,39 @@ public class MainActivity extends AppCompatActivity {
                 Usuario usuario = new Usuario();
                 String login = etLogin.toString();
                 String senha = etSenha.toString();
-                if (usuario.Logar(login,senha) == null){
-                    Log.d("Resultado do Login","Usuário não encontrado!");
-                }else{
-                    Log.d("Resultado do Login","Usuário encontrado e carregado!");
-                }
+                String mensagem = "";
+                mensagem = logar(login,senha);
+                AlertDialog.Builder dlg = new AlertDialog.Builder(MainActivity.this);
+                dlg.setMessage(mensagem);
+                dlg.setNeutralButton("OK", null);
+                dlg.show();
             }
         });
+    }
+
+    public String logar(String login, String senha){
+        Realm realm = Realm.getDefaultInstance();
+        Usuario usuario = new Usuario();
+        String mensagem = "";
+        if (login != null){
+            usuario = usuario.findByLogin(login);
+            if (usuario != null) {
+                if (usuario.getSenha() != null && senha != null) {
+                    if (usuario.getSenha() == senha) {
+                        Log.d("Resultado do Login", "Usuário encontrado e carregado!");
+                    } else {
+                        Log.d("Resultado do Login","Senha incorreta!");
+                    }
+                } else {
+                    Log.d("Resultado do Login","Erro na senha cadastrada/Senha inválida!");
+                }
+            }else{
+                mensagem = "Usuário não encontrado!";
+                Log.d("Resultado do Login","Usuário não encontrado!");
+            }
+        }else{
+            Log.d("Resultado do Login","Usuário inválido!");
+        }
+        return mensagem;
     }
 }

@@ -28,23 +28,20 @@ public class Usuario extends RealmObject {
         this.setFuncao_id(funcao_id);
     }
 
-    public Usuario Logar(String login, String senha){
+    public Usuario(String login, String senha){
+        this.setLogin(login);
+        this.setSenha(senha);
+    }
+
+    public Usuario findByLogin(String login){
         Realm realm = Realm.getDefaultInstance();
-        Usuario usuario;
+        Usuario usuario = new Usuario();
         try {
             usuario = realm.where(Usuario.class).contains("login", login).findFirst();
         }finally{
             realm.close();
         }
-        if (usuario != null) {
-            if (usuario.getSenha() != null){
-                return usuario;
-            } else {
-                return null;
-            }
-        }else{
-            return null;
-        }
+        return usuario;
     }
 
     public int getId() {
