@@ -26,16 +26,13 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation 'io.realm:realm-android:0.82.1'
-    implementation 'com.android.support:recyclerview-v7:27.0.2'
-    implementation 'com.android.support:cardview-v7:27.0.2'
-    buildscript {
-        repositories {
-            jcenter()
-        }
-        dependencies {
-            classpath 'com.android.tools.build:gradle:3.1.3'
-            classpath 'io.realm:realm-gradle-plugin:1.2.0'
-        }
-    }
+    //annotationProcessor 'io.realm:realm-android:0.82.1'
+    //implementation 'io.realm:realm-android:0.82.1'
+    //implementation 'com.android.support:recyclerview-v7:27.0.2'
+    //implementation 'com.android.support:cardview-v7:27.0.2'
+
+}
+
+realm {
+    syncEnabled = true;
 }
